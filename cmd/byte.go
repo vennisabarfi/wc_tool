@@ -28,10 +28,10 @@ func init() {
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
 	// byteCmd.PersistentFlags().String("foo", "", "A help for foo")
-	byteCmd.PersistentFlags().StringP("file", "c", "", "Output number of bytes in a file") //moved to a persistent flag
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	byteCmd.Flags().StringP("file", "c", "", "Output number of bytes in a file")
+	rootCmd.Flags().StringP("file", "c", "", "Output number of bytes in a file") //attached to root so I can use as a global flag instead
+	// byteCmd.Flags().StringP("file", "c", "", "Output number of bytes in a file")
 
 }

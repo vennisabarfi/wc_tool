@@ -4,16 +4,10 @@ Copyright © 2025 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/spf13/cobra"
 )
-
-func Printd(cmd *cobra.Command, args []string) {
-	name, _ := cmd.Flags().GetString("name")
-	fmt.Print("Hello World!", name)
-}
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -22,7 +16,12 @@ var rootCmd = &cobra.Command{
 	Long:  `This is a clone of the wc tool in Unix but in Go!`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
-	Run: Printd,
+	Run: func(cmd *cobra.Command, args []string) {
+		// Call multiple functions here
+
+		Printer(cmd, args)
+		Printers(cmd, args)
+	},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -36,6 +35,7 @@ func Execute() {
 }
 
 func init() {
+
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
@@ -46,5 +46,5 @@ func init() {
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	rootCmd.Flags().StringP("name", "n", "", "Name to include in the hello message")
-
+	rootCmd.Flags().StringP("message", "m", "", "Name to include in the hello message")
 }

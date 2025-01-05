@@ -19,7 +19,10 @@ func FileHelper() {
 
 func NumberofBytes(cmd *cobra.Command, args []string) {
 	if cmd.Flags().Changed("count") {
-		file_name, _ := cmd.Flags().GetString("count")
+		file_name, err := cmd.Flags().GetString("count")
+		if err != nil {
+			panic(err)
+		}
 
 		fmt.Println("File is: ", file_name)
 
@@ -46,39 +49,51 @@ func NumberofBytes(cmd *cobra.Command, args []string) {
 
 }
 
+func lineCounter(r io.Reader) (int, error) {
+	// create a buffer
+	buffer := make([]byte, 32*1024)
+	count := 0
+	line_separator := []byte{'\n'} //separate by new line
+
+	for {
+		c, err := r.Read(buffer)
+		count += bytes.Count(buffer[:c], line_separator)
+
+		switch {
+		case err == io.EOF:
+			return count, nil
+
+		case err != nil:
+			return count, err
+		}
+	}
+}
+
 func NumberofLines(cmd *cobra.Command, args []string) {
 	if cmd.Flags().Changed("lines") {
 
-		file_name, _ := cmd.Flags().GetString("lines")
+		file_name, err := cmd.Flags().GetString("lines")
+		if err != nil {
+			panic(err)
+		}
+
 		// returns an io.Reader for later
 		file, err := os.Open(file_name)
 		if err != nil {
 			panic(err)
 		}
 
-		// create a buffer with a counter and separator by new line
-		buffer := make([]byte, 32*1024)
-		count := 0
-		line_separator := []byte{'\n'}
-
+		//  initialize file to be read by lineCounter function
 		r := io.Reader(file)
+		count, err := lineCounter(r)
 
-		for {
+		fmt.Println(count, file_name)
 
-			c, err := r.Read(buffer)
-			count += bytes.Count(buffer[:c], line_separator)
-			// fmt.Print("Oh yeahL", count)
-
-			switch {
-			case err == io.EOF:
-				fmt.Print("Heres':", count, nil)
-
-			case err != nil:
-				fmt.Print("Yapa", count, err)
-
-			}
-
-		}
 	}
+
+}
+
+// output the number of words in a file
+func NumberofWords(cmd *cobra.Command, args []string) {
 
 }

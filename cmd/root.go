@@ -20,7 +20,8 @@ var rootCmd = &cobra.Command{
 		// Call multiple functions here
 
 		NumberofBytes(cmd, args)
-		Printers(cmd, args)
+		NumberofLines(cmd, args)
+
 	},
 }
 
@@ -44,8 +45,7 @@ func init() {
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-	rootCmd.Flags().StringP("name", "n", "", "Name to include in the hello message")
-	rootCmd.Flags().StringP("message", "m", "", "Name to include in the hello message")
-	rootCmd.Flags().StringP("count", "c", "", "Name to include in the hello message")
+
+	rootCmd.Flags().StringP("count", "c", "", "Count number of bytes in a file")
+	rootCmd.Flags().StringP("lines", "l", "", "Find number of lines in a file")
 }

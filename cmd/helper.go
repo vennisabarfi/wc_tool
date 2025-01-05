@@ -1,20 +1,17 @@
 package cmd
 
 import (
+	"bytes"
 	"fmt"
+	"io"
 	"log"
 	"os"
 
 	"github.com/spf13/cobra"
 )
 
-func Printers(cmd *cobra.Command, args []string) {
-	// check if flag has been set by user
-	if cmd.Flags().Changed("message") {
-		message, _ := cmd.Flags().GetString("message")
-
-		fmt.Print("Hi lol lol ", message)
-	}
+// function to open and read files
+func FileHelper() {
 
 }
 
@@ -45,6 +42,43 @@ func NumberofBytes(cmd *cobra.Command, args []string) {
 
 		fmt.Println(byte_length, file_name)
 		fmt.Printf("Byte length is %d for %s", byte_length, file_name)
+	}
+
+}
+
+func NumberofLines(cmd *cobra.Command, args []string) {
+	if cmd.Flags().Changed("lines") {
+
+		file_name, _ := cmd.Flags().GetString("lines")
+		// returns an io.Reader for later
+		file, err := os.Open(file_name)
+		if err != nil {
+			panic(err)
+		}
+
+		// create a buffer with a counter and separator by new line
+		buffer := make([]byte, 32*1024)
+		count := 0
+		line_separator := []byte{'\n'}
+
+		r := io.Reader(file)
+
+		for {
+
+			c, err := r.Read(buffer)
+			count += bytes.Count(buffer[:c], line_separator)
+			// fmt.Print("Oh yeahL", count)
+
+			switch {
+			case err == io.EOF:
+				fmt.Print("Heres':", count, nil)
+
+			case err != nil:
+				fmt.Print("Yapa", count, err)
+
+			}
+
+		}
 	}
 
 }

@@ -46,4 +46,5 @@ func init() {
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	rootCmd.Flags().StringP("name", "n", "", "Name to include in the hello message")
+
 }

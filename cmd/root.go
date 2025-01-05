@@ -19,7 +19,7 @@ var rootCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		// Call multiple functions here
 
-		Printer(cmd, args)
+		NumberofBytes(cmd, args)
 		Printers(cmd, args)
 	},
 }
@@ -47,4 +47,5 @@ func init() {
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	rootCmd.Flags().StringP("name", "n", "", "Name to include in the hello message")
 	rootCmd.Flags().StringP("message", "m", "", "Name to include in the hello message")
+	rootCmd.Flags().StringP("count", "c", "", "Name to include in the hello message")
 }

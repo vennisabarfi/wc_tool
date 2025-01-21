@@ -185,12 +185,14 @@ func NoFlagOption(cmd *cobra.Command, args []string) {
 	// returns an io.Reader for later
 	file, err := os.Open(file_name)
 	if err != nil {
-		panic(err)
+		// panic(err)
+		log.Fatal("File failed to open: ", err)
 	}
 	// check for error to be returned and exit if file not found
 	defer func() {
 		if err := file.Close(); err != nil {
-			panic(err)
+			// panic("File closed" err)
+			log.Fatal("File closed: ", err)
 		}
 	}()
 	char := characterCounter(file_name)

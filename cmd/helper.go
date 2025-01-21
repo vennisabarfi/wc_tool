@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"strings"
 	"unicode/utf8"
 
 	"github.com/spf13/cobra"
@@ -166,4 +167,33 @@ func NumberofCharacters(cmd *cobra.Command, args []string) {
 		fmt.Println("char", utf8.RuneCount(buffer))
 
 	}
+}
+
+// no flag option. output -c, -l and -w options
+func NoFlagOption(cmd *cobra.Command, args []string) {
+
+	//  convert array of strings to just string
+	file_name := strings.Join(args, " ")
+	fmt.Print(file_name)
+
+	// returns an io.Reader for later
+	file, err := os.Open(file_name)
+	if err != nil {
+		panic(err)
+	}
+	// check for error to be returned and exit if file not found
+	defer func() {
+		if err := file.Close(); err != nil {
+			panic(err)
+		}
+	}()
+
+	// // initialize a buffer to access file content
+	// buffer, err := os.ReadFile(file_name)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+
+	// fmt.Println("char", utf8.RuneCount(buffer))
+
 }

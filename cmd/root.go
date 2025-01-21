@@ -23,6 +23,7 @@ var rootCmd = &cobra.Command{
 		NumberofLines(cmd, args)
 		NumberofWords(cmd, args)
 		NumberofCharacters(cmd, args)
+		NoFlagOption(cmd, args)
 
 	},
 }
@@ -52,4 +53,5 @@ func init() {
 	rootCmd.Flags().StringP("words", "w", "", "Find number of words in a file")
 	rootCmd.Flags().StringP("lines", "l", "", "Find number of lines in a file")
 	rootCmd.Flags().StringP("char", "m", "", "Find number of characters in a file")
+	// rootCmd.Flags().StringP("main", "", "", "Main. Outputs -c, -l  and -w options")
 }

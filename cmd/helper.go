@@ -138,6 +138,19 @@ func NumberofWords(cmd *cobra.Command, args []string) {
 	}
 }
 
+func characterCounter(file_name string) (char int) {
+	// initialize a buffer to access file content
+	buffer, err := os.ReadFile(file_name)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	char = utf8.RuneCount(buffer)
+
+	fmt.Println("char", utf8.RuneCount(buffer))
+	return char
+}
+
 // output the number of characters in a text
 func NumberofCharacters(cmd *cobra.Command, args []string) {
 	if cmd.Flags().Changed("char") {
@@ -158,13 +171,6 @@ func NumberofCharacters(cmd *cobra.Command, args []string) {
 				panic(err)
 			}
 		}()
-		// initialize a buffer to access file content
-		buffer, err := os.ReadFile(file_name)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		fmt.Println("char", utf8.RuneCount(buffer))
 
 	}
 }
@@ -187,7 +193,8 @@ func NoFlagOption(cmd *cobra.Command, args []string) {
 			panic(err)
 		}
 	}()
-
+	char := characterCounter(file_name)
+	fmt.Println(char)
 	// // initialize a buffer to access file content
 	// buffer, err := os.ReadFile(file_name)
 	// if err != nil {

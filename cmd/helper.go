@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"unicode/utf8"
 
 	"github.com/spf13/cobra"
 )
@@ -131,7 +132,38 @@ func NumberofWords(cmd *cobra.Command, args []string) {
 		if err := scanner.Err(); err != nil {
 			fmt.Fprintln(os.Stderr, "Error while scanning file file:", err)
 		}
-		fmt.Printf("%d\n", count, file_name)
+		fmt.Println(count, file_name)
+
+	}
+}
+
+// output the number of characters in a text
+func NumberofCharacters(cmd *cobra.Command, args []string) {
+	if cmd.Flags().Changed("char") {
+
+		file_name, err := cmd.Flags().GetString("char")
+		if err != nil {
+			panic(err)
+		}
+
+		// returns an io.Reader for later
+		file, err := os.Open(file_name)
+		if err != nil {
+			panic(err)
+		}
+		// check for error to be returned and exit if file not found
+		defer func() {
+			if err := file.Close(); err != nil {
+				panic(err)
+			}
+		}()
+		// initialize a buffer to access file content
+		buffer, err := os.ReadFile(file_name)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Println("char", utf8.RuneCount(buffer))
 
 	}
 }

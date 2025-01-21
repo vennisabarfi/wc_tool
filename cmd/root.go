@@ -21,6 +21,7 @@ var rootCmd = &cobra.Command{
 
 		NumberofBytes(cmd, args)
 		NumberofLines(cmd, args)
+		NumberofWords(cmd, args)
 
 	},
 }
@@ -47,5 +48,6 @@ func init() {
 	// when this action is called directly.
 
 	rootCmd.Flags().StringP("count", "c", "", "Count number of bytes in a file")
+	rootCmd.Flags().StringP("words", "w", "", "Find number of words in a file")
 	rootCmd.Flags().StringP("lines", "l", "", "Find number of lines in a file")
 }

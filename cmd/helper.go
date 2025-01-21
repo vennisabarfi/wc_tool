@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"bufio"
 	"bytes"
 	"fmt"
 	"io"
@@ -95,5 +96,42 @@ func NumberofLines(cmd *cobra.Command, args []string) {
 
 // output the number of words in a file
 func NumberofWords(cmd *cobra.Command, args []string) {
+	if cmd.Flags().Changed("words") {
 
+		file_name, err := cmd.Flags().GetString("words")
+		if err != nil {
+			panic(err)
+		}
+
+		// returns an io.Reader for later
+		file, err := os.Open(file_name)
+		if err != nil {
+			panic(err)
+		}
+		// check for error to be returned and exit if file not found
+		defer func() {
+			if err := file.Close(); err != nil {
+				panic(err)
+			}
+		}()
+
+		// initialize a buffer to access file content
+		buffer, err := os.ReadFile(file_name)
+		if err != nil {
+			log.Fatal(err)
+		}
+		// initialize a scanner to be used by ScanWords for word count
+		scanner := bufio.NewScanner(bytes.NewReader(buffer))
+		scanner.Split(bufio.ScanWords)
+		// count words
+		count := 0
+		for scanner.Scan() {
+			count++
+		}
+		if err := scanner.Err(); err != nil {
+			fmt.Fprintln(os.Stderr, "Error while scanning file file:", err)
+		}
+		fmt.Printf("%d\n", count, file_name)
+
+	}
 }

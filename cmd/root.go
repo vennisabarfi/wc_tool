@@ -13,7 +13,7 @@ import (
 var rootCmd = &cobra.Command{
 	Use:   "wctool",
 	Short: "Go Version of the Iconic wc in Unix",
-	Long:  `This is a clone of the wc tool in Unix but in Go!`,
+	Long:  `This is a clone of the wc tool in Unix but in Go! Run go run main.go -flag file_name`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
@@ -23,7 +23,19 @@ var rootCmd = &cobra.Command{
 		NumberofLines(cmd, args)
 		NumberofWords(cmd, args)
 		NumberofCharacters(cmd, args)
-		// NoFlagOption(cmd, args)
+	},
+}
+
+var secondCmd = &cobra.Command{
+	Use:   "ccwc",
+	Short: "Default command to instantly find count of bytes, number of words and number of lines in a file!",
+	Long:  `run ccwc file_name`,
+	// Uncomment the following line if your bare application
+	// has an action associated with it:
+	Run: func(cmd *cobra.Command, args []string) {
+		// Call multiple functions here
+
+		NoFlagOption(cmd, args)
 
 	},
 }
@@ -39,16 +51,15 @@ func Execute() {
 }
 
 func init() {
-
+	rootCmd.AddCommand(secondCmd)
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
-	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.wctool.yaml)")
+	//rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.wctool.yaml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-
 	rootCmd.Flags().StringP("count", "c", "", "Count number of bytes in a file")
 	rootCmd.Flags().StringP("words", "w", "", "Find number of words in a file")
 	rootCmd.Flags().StringP("lines", "l", "", "Find number of lines in a file")

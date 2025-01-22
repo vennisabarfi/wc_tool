@@ -26,7 +26,8 @@ var rootCmd = &cobra.Command{
 	},
 }
 
-var secondCmd = &cobra.Command{
+// default command with no flags
+var defaultCmd = &cobra.Command{
 	Use:   "ccwc",
 	Short: "Default command to instantly find count of bytes, number of words and number of lines in a file!",
 	Long:  `run ccwc file_name`,
@@ -51,7 +52,7 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.AddCommand(secondCmd)
+	rootCmd.AddCommand(defaultCmd)
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.

@@ -80,5 +80,5 @@ Currently runs on go 1.23.4. Please view ([go.mod](https://github.com/vennisabar
 
 ## Acknowledgments
 
-Inspiration, code snippets, etc.
+
 * Problem found at: [codingchallenges.fyi](https://codingchallenges.fyi/challenges/challenge-wc/)

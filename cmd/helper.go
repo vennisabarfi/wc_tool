@@ -195,7 +195,6 @@ func NoFlagOption(cmd *cobra.Command, args []string) {
 	//  convert array of strings to just string
 	file_name := strings.Join(args, " ")
 
-	// returns an io.Reader for later
 	file, err := os.Open(file_name)
 	if err != nil {
 		// panic(err)
@@ -209,7 +208,7 @@ func NoFlagOption(cmd *cobra.Command, args []string) {
 		}
 	}()
 
-	//  initialize file to be read by lineCounter function
+	//  initialize file to be read by lineCounter function with reader
 	reader := io.Reader(file)
 	count, err := lineCounter(reader)
 	if err != nil {

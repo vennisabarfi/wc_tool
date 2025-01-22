@@ -33,13 +33,13 @@ This command line tool is built using Cobra CLI in Go.
    This is a clone of the wc tool in Unix but in Go! 
    Run go run main.go -flag file_name
    wctool [flags]
-   ccwc        Default command to instantly find count of bytes, number of words and number of lines in a file
+   ccwc        Default command to instantly find count of bytes, number of words and number of lines in a file.
 
    Flags:
-  -c, --count string   Count number of bytes in a file
-  -h, --help           help for wctool
-  -l, --lines string   Find number of lines in a file
-  -w, --words string   Find number of words in a file
+   -c, --count string   Count number of bytes in a file
+   -h, --help           help for wctool
+   -l, --lines string   Find number of lines in a file
+   -w, --words string   Find number of words in a file
     ```
 
 3. To run the default command

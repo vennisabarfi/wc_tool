@@ -71,7 +71,7 @@ Currently runs on go 1.23.4. Please view ([go.mod](https://github.com/vennisabar
 
 ## Authors
 
-Contributors names and contact info
+
 [Vennisa Barfi](https://github.com/vennisabarfi)
 
 ## Version History
